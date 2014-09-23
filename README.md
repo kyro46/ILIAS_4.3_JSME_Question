@@ -20,4 +20,4 @@ and activate it in the ILIAS-Admin-GUI.
 * Developing plugin for ILIAS 4.3 by Yves Annanias, University Halle 2014
 * Minor refactoring by Christoph Jobst, University Halle 2014
 
- [**See the Version for ILIAS 4.4**]()
+ [**See the Version for ILIAS 4.4**](https://github.com/kyro46/ILIAS_4.4_JSME_Question)
