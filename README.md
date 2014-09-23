@@ -14,7 +14,8 @@ Using the free JSME-Editor, the questiontype allows to create molecules with an 
 Install the plugin (e.g. with the provided .ZIP) to
 * Customizing/global/plugins/Modules/TestQuestionPool/Questions
 
-and activate it in the ILIAS-Admin-GUI.
+and activate it in the ILIAS-Admin-GUI. Activate manual scoring for this type. 
+Automatic scoring with comparison of SMILE-Code may be possible in later versions.
 
 ### Credits ###
 * Developing plugin for ILIAS 4.3 by Yves Annanias, University Halle 2014
