@@ -405,8 +405,12 @@ class assJSMEQuestionGUI extends assQuestionGUI
 		}
 		
 		// add tab for question hint within common class assQuestionGUI
-		$this->addTab_QuestionHints($ilTabs);
+		//not yet implemented
+		//$this->addTab_QuestionHints($ilTabs);
 
+		/*
+		 * no special need for this, since sample solution is provided in "Edit Properties"-screen
+		 */
 		if ($_GET["q_id"])
 		{
 			$ilTabs->addTarget("solution_hint",
@@ -478,70 +482,6 @@ class assJSMEQuestionGUI extends assQuestionGUI
 		}
 		$test = new ilObjTest($this->object->active_id);
 		return $this->object->prepareTextareaOutput($output, TRUE);		
-	}
-	
-	/**
-	* Creates the output of the feedback page for a TemplateQuestion question
-	*
-	* @access public
-	*/
-	function feedback($checkonly = false)
-	{		
-		$save = (strcmp($this->ctrl->getCmd(), "saveFeedback") == 0) ? TRUE : FALSE;
-		include_once("./Services/Form/classes/class.ilPropertyFormGUI.php");
-		$form = new ilPropertyFormGUI();
-		$form->setFormAction($this->ctrl->getFormAction($this));
-		$form->setTitle('feedback_answers');
-		$form->setTableWidth("100%");
-		$form->setId("feedback");
-
-		$complete = new ilTextAreaInputGUI("feedback_complete_solution", "feedback_complete");
-		$complete->setValue($this->object->prepareTextareaOutput($this->object->getFeedbackGeneric(1)));
-		$complete->setRequired(false);
-		$complete->setRows(10);
-		$complete->setCols(80);
-		if (!$this->getPreventRteUsage())
-		{
-			$complete->setUseRte(true);
-		}
-		include_once "./Services/AdvancedEditing/classes/class.ilObjAdvancedEditing.php";
-		$complete->setRteTags(ilObjAdvancedEditing::_getUsedHTMLTags("assessment"));
-		$complete->addPlugin("latex");
-		$complete->addButton("latex");
-		$complete->addButton("pastelatex");
-		$complete->setRTESupport($this->object->getId(), "qpl", "assessment", null, false, '3.4.7');
-		$form->addItem($complete);
-
-		$incomplete = new ilTextAreaInputGUI("feedback_incomplete_solution", "feedback_incomplete");
-		$incomplete->setValue($this->object->prepareTextareaOutput($this->object->getFeedbackGeneric(0)));
-		$incomplete->setRequired(false);
-		$incomplete->setRows(10);
-		$incomplete->setCols(80);
-		if (!$this->getPreventRteUsage())
-		{
-			$incomplete->setUseRte(true);
-		}
-		include_once "./Services/AdvancedEditing/classes/class.ilObjAdvancedEditing.php";
-		$incomplete->setRteTags(ilObjAdvancedEditing::_getUsedHTMLTags("assessment"));
-		$incomplete->addPlugin("latex");
-		$incomplete->addButton("latex");
-		$incomplete->addButton("pastelatex");
-		$incomplete->setRTESupport($this->object->getId(), "qpl", "assessment", null, false, '3.4.7');
-		$form->addItem($incomplete);
-
-		global $ilAccess;
-		if ($ilAccess->checkAccess("write", "", $_GET['ref_id']) || $this->getSelfAssessmentEditingMode())
-		{
-			$form->addCommandButton("saveFeedback", "save");
-		}
-		if ($save)
-		{
-			$form->setValuesByPost();
-			$errors = !$form->checkInput();
-			$form->setValuesByPost(); // again, because checkInput now performs the whole stripSlashes handling and we need this if we don't want to have duplication of backslashes
-		}
-		if (!$checkonly) $this->tpl->setVariable("ADM_CONTENT", $form->getHTML());
-		return $errors;
 	}
 }
 ?>
